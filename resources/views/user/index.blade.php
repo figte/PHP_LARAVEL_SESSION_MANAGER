@@ -22,6 +22,7 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Email</th>
+                            <th>Rol</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -32,6 +33,16 @@
                                 <td>{{$dato->id}}</td>
                                 <td>{{$dato->name}}</td>
                                 <td>{{$dato->email}}</td>
+                                        {{-- @foreach($users_rol as $user_rol)
+                                                @if($user_rol->user_id==$dato->id)
+                                                    @foreach($roles as $rol)
+                                                        @if($user_rol->role_id==$rol->id)
+                                                            <td>{{$rol->name}}</td>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                        @endforeach --}}
+                                    <td>{{$dato->rol}}</td>
                                 <td>
                                    
                                     <form action="{{Route('user.destroy',array($dato->id))}}" method="post">

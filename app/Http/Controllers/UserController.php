@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use App\User;
 use Illuminate\Http\Request;
 use App\Role;
@@ -21,10 +21,31 @@ class UserController extends Controller
     public function index()
     {
       
+        $users_rol=RoleUser::all();
+        //$rol=Role::find($user_rol->role_id);
+        $roles=Role::all();
+
+      // $datos=User::all();
+  $datos=DB::select("select 
+
+                        u.id,
+                        u.name,
+                        u.email,
+                        r.name as rol
+                        
+                        from users u
+                        
+                        Join role_user ru on ru.user_id=u.id
+                        Join roles r on r.id=ru.role_id
+                        
+                        
+                        
+                        group by u.id,u.name,u.email,r.name
+  
+                    ");
 
 
-       $datos=User::all();
-        return View('user.index',['datos'=>$datos]);
+        return View('user.index',['datos'=>$datos,'roles'=>$roles,'users_rol'=>$users_rol]);
     }
 
     /**
@@ -118,7 +139,12 @@ class UserController extends Controller
         $user=User::find($id);
         $user->update($request->all());
         $user->password = bcrypt($user->password );
+        $user->roles()->attach(Role::where('id',  $request->input('rol'))->first());
         $user->update();
+
+
+       
+
         return redirect()->route('user.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
