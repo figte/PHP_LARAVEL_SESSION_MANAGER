@@ -48,9 +48,9 @@
                                 <select name="rol" id="rol" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" required >
                                 @foreach ($roles as $role)
                                     @if($rol->id==$role->id)
-                                          <option value="{{$rol->id}}" selected>{{$role->name}}</option>
+                                          <option value="{{$role->id}}" selected>{{$role->name}}</option>
                                     @else
-                                         <option value="{{$rol->id}}">{{$role->name}}</option>
+                                         <option value="{{$role->id}}">{{$role->name}}</option>
                                     @endif
                                 @endforeach
 
